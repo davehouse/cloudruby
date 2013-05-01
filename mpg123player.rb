@@ -41,10 +41,14 @@ class MPG123Player
   def save()
     trap("CLD") {
       pid = Process.wait
-      print "Saved mp3 file: \"#{@last_track['title'].gsub("/","\\")}.mp3\""
+      print "Saved mp3 file: \"#{@last_track['title'].gsub("/","\\")}.mp3\"                                         "
     }
 
-    exec("mpg123 -q -O \"#{@last_track['title'].gsub("/","\\")}.mp3\" #{@last_track['mpg123url']}") if fork == nil
+    if @last_track['downloadable']
+      exec("mpg123 -q -O \"#{@last_track['title'].gsub("/","\\")}.mp3\" #{@last_track['mpg123url']}") if fork == nil
+    else
+      print "Stream is not downloadable for song: \"#{@last_track['title'].gsub("/","\\")}\"                                        "
+    end
   end
 
   def pause()
