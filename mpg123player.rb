@@ -38,6 +38,15 @@ class MPG123Player
     @pstate == 2 && !@paused
   end
 
+  def save()
+    trap("CLD") {
+      pid = Process.wait
+      print "Saved mp3 file: \"#{@last_track['title'].gsub("/","\\")}.mp3\""
+    }
+
+    exec("mpg123 -q -O \"#{@last_track['title'].gsub("/","\\")}.mp3\" #{@last_track['mpg123url']}") if fork == nil
+  end
+
   def pause()
     @paused = !@paused
     mpg123puts "pause"

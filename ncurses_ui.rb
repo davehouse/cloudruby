@@ -50,6 +50,8 @@ class NCursesUI
           @cloud.toggleMute
         when 32
           @cloud.pause
+        when 115
+          @cloud.save
         end
 
         if @error

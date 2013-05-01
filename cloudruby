@@ -62,6 +62,10 @@ class Cloudruby
     @player.pause
   end
 
+  def save
+    @player.save
+  end
+
   def volumeUp
     @player.volume = 5
   end
